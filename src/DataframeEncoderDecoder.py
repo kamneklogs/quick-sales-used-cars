@@ -65,6 +65,3 @@ for A, B in zip(df['transmission'].values, inverse):
     transmissionDict[A] = B
 
 print(transmissionDict)
-
-
-df.to_csv('data/dataset_encoded.csv', index=False)

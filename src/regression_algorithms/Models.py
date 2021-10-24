@@ -1,19 +1,19 @@
-from sklearn import datasets
-from sklearn.linear_model import LinearRegression
 import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
 
-dataset = datasets.load_boston()
-dataset
-
-
-objetivo = dataset['target']
-independientes = dataset['data']
+ventas = pd.read_csv("ventas2.csv")
+objetivo = "monto"
+independientes = ventas.drop(columns=['monto']).columns
 
 modelo = LinearRegression()
+modelo.fit(X=ventas[independientes], y=ventas[objetivo])
 
 
-modelo.fit(X=independientes, y=objetivo)
+ventas["ventas_prediccion"] = modelo.predict(ventas[independientes])
+preds = ventas[["monto", "ventas_prediccion"]].head(50)
 
-predicciones = modelo.predict(independientes)
-for y, y_pred in list(zip(objetivo, predicciones))[:5]:
-    print("Valor Real: {:.3f} Valor Estimado: {:.5f}".format(y, y_pred))
+
+ventas.dtypes
+
+ventas
